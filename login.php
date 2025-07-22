@@ -22,8 +22,11 @@
                 
                $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
                if (password_verify($password_login, $user["password"])) {
-                header("Location:index.php" );
-                die();
+                    session_start();
+                    $_SESSION['user_name'] = $user['fullname'];
+                    $_SESSION['user_email'] = $user['email'];
+                    header("Location: index.php");
+                    die();
                }else{
                 echo "<div class='alert alert-danger'>Password doesn't match</div>";
 
